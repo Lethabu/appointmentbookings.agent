@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
@@ -26,6 +26,32 @@ export default function LoginPage() {
       return;
     }
     router.push('/dashboard');
+  };
+
+  // Magic Link
+  const handleMagicLink = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const { error: magicError } = await supabase.auth.signInWithOtp({
+      email: e.target.magic_email.value,
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+    });
+    setLoading(false);
+    if (magicError) setError(magicError.message);
+    else setError('Check your email for a magic link!');
+  };
+
+  // OAuth
+  const handleOAuth = async (provider) => {
+    setLoading(true);
+    setError(null);
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
+    setLoading(false);
+    if (oauthError) setError(oauthError.message);
   };
 
   return (
@@ -64,8 +90,23 @@ export default function LoginPage() {
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
-          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
         </form>
+        <form onSubmit={handleMagicLink} className="space-y-4 mt-4">
+          <input
+            id="magic_email"
+            name="magic_email"
+            type="email"
+            required
+            placeholder="Email for magic link"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          />
+          <button type="submit" className="w-full py-2 px-4 bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-200">Send Magic Link</button>
+        </form>
+        <div className="flex flex-col gap-2 mt-4">
+          <button onClick={() => handleOAuth('google')} className="w-full py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600">Sign in with Google</button>
+          <button onClick={() => handleOAuth('github')} className="w-full py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-900">Sign in with GitHub</button>
+        </div>
+        {error && <p className="text-red-500 text-center text-sm mt-2">{error}</p>}
       </div>
     </div>
   );

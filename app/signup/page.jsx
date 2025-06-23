@@ -35,6 +35,18 @@ export default function SignUpPage() {
     router.push('/check-email');
   };
 
+  // OAuth
+  const handleOAuth = async (provider) => {
+    setLoading(true);
+    setError(null);
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
+    setLoading(false);
+    if (oauthError) setError(oauthError.message);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
@@ -90,6 +102,14 @@ export default function SignUpPage() {
           </button>
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
         </form>
+        <div className="flex flex-col gap-2 mt-4">
+          <button onClick={() => handleOAuth('google')} className="w-full py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600">
+            Sign up with Google
+          </button>
+          <button onClick={() => handleOAuth('github')} className="w-full py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-900">
+            Sign up with GitHub
+          </button>
+        </div>
       </div>
     </div>
   );

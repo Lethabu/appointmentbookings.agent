@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AppointmentBookings SaaS
+
+A production-ready, multi-tenant appointment booking platform for salons and service businesses.
+
+## Features
+- Multi-tenant architecture (salon isolation, RLS)
+- Supabase Auth (OAuth, Magic Link, RBAC)
+- Stripe, Netcash, Payflex payments
+- Real-time calendar sync (Supabase Realtime)
+- AI agents: Nia (GPT-4o booking), Orion (Gemini Pro recommendations)
+- WhatsApp reminders
+- Vercel edge deployment, Docker support
+- Redis caching for performance
+- Nightly backup scripts
+- Modern, responsive UI/UX
 
 ## Getting Started
+1. Clone the repo and install dependencies:
+   ```bash
+   npm install
+   ```
+2. Set up environment variables (see `.env.example`):
+   - Supabase keys/URL
+   - Stripe, Netcash, Payflex credentials
+   - Redis URL
+3. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000)
 
-First, run the development server:
+## Deployment
+- Deploy to Vercel (recommended) or Docker (`Dockerfile` included)
+- Configure environment variables in Vercel dashboard or `.env`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Testing
+- Run tests with:
+  ```bash
+  npx jest --coverage
+  ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database
+- Schema and RLS: `database/schema.sql`, `database/rls_policies.sql`
+- Nightly backup: `scripts/backup.sql`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Payments
+- Configure Stripe, Netcash, Payflex in your environment
+- Webhooks handled in `/api/payments/*` and `/api/webhooks/*`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## AI Agents
+- Nia (bookings): `/components/AI/NiaChat.jsx`
+- Orion (recommendations): `/components/AI/OrionChat.jsx`
+- WhatsApp reminders: `/components/AI/WhatsAppReminderSetup.jsx`
 
-## Learn More
+## RBAC & Admin
+- Owner, staff, and admin roles enforced via Supabase RLS and UI
+- Admin dashboard: `/app/admin/page.jsx`
 
-To learn more about Next.js, take a look at the following resources:
+## UI/UX
+- Modern, accessible, mobile-friendly
+- Customizable via Tailwind CSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+PRs and issues welcome!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2025 AppointmentBookings.co.za

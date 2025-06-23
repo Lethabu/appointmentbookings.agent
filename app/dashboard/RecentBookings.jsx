@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import { subscribeToAppointments } from "../utils/realtime";
 
 export default function RecentBookings({ salonId }) {
   const [bookings, setBookings] = useState([]);
@@ -8,6 +9,7 @@ export default function RecentBookings({ salonId }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let subscription;
     const fetchBookings = async () => {
       setLoading(true);
       setError(null);
@@ -21,7 +23,16 @@ export default function RecentBookings({ salonId }) {
       else setBookings(data || []);
       setLoading(false);
     };
-    if (salonId) fetchBookings();
+    if (salonId) {
+      fetchBookings();
+      // Subscribe to real-time updates
+      subscription = subscribeToAppointments(salonId, () => {
+        fetchBookings();
+      });
+    }
+    return () => {
+      if (subscription) subscription.unsubscribe();
+    };
   }, [salonId]);
 
   if (loading) return <div className="text-gray-400">Loading...</div>;
