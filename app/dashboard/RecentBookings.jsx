@@ -15,7 +15,8 @@ export default function RecentBookings({ salonId }) {
       setError(null);
       const { data, error } = await supabase
         .from("appointments")
-        .select("id, client_name, start_time, service_id, services(name)")
+        .select("id, user_id, start_time, service_id, services(name), profiles(full_name)")
+        .leftJoin("profiles", "user_id", "profiles.id")
         .eq("salon_id", salonId)
         .order("start_time", { ascending: false })
         .limit(5);
@@ -43,7 +44,7 @@ export default function RecentBookings({ salonId }) {
     <ul>
       {bookings.map((b) => (
         <li key={b.id} className="mb-2 flex justify-between items-center">
-          <span>{b.client_name} ({b.services?.name || b.service_id})</span>
+          <span>{b.profiles?.full_name || b.user_id} ({b.services?.name || b.service_id})</span>
           <span className="text-sm text-gray-500">{new Date(b.start_time).toLocaleString()}</span>
         </li>
       ))}
