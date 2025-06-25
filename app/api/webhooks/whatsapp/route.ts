@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getOrCreateClient, getConversationHistory, saveConversationHistory } from '@/app/lib/db';
+import { getOrCreateClient, getConversationHistory, saveConversationHistory } from '../../../lib/db';
 
 export async function POST(req: Request) {
   const secret = req.headers.get('X-Webhook-Secret');
