@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "appointmentbookings",
+			"path": "."
+		},
+		{
+			"name": "AppointmentBooking",
+			"path": "../../Lethabu/AppointmentBooking"
+		},
+		{
+			"path": "../../Lethabu/Lethabu Agents/smart-salon-hq"
+		}
+	],
+	"settings": {}
+}
