@@ -1,0 +1,10 @@
+// Before
+const service = MockServices.find(s => s.id === selectedServiceId);
+
+// After
+const service = MockServices.find((s: Service) => s.id === selectedServiceId);
+
+// And for map:
+{MockServices.map((service: Service) => (
+  // ...
+))}
