@@ -1,0 +1,5 @@
+import { AgentType } from '../shared/types';
+import { getAgentSystemInstruction } from '../shared/constants';
+import { generateAgentResponse } from '../shared/services/geminiService';
+
+c:\Users\Adrin\Documents\MyProjects\appointmentbookings\shared\

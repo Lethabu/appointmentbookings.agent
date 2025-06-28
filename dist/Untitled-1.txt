@@ -1,4 +1,0 @@
-{
-  // ...other fields...
-  "type": "commonjs"
-}

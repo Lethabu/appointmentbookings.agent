@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@google/genai": "^1.6.0",
+    "@google/genai": "^1.7.0",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "react": "^19.1.0",
