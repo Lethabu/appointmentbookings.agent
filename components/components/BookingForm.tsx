@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Booking, Service } from '../../../../Lethabu/Lethabu Agents/smart-salon-hq/types';
+import { Booking, Service } ;
 import { MockServices, IconWhatsApp } from '../../../../Lethabu/Lethabu Agents/smart-salon-hq/constants';
 
 interface BookingFormProps {
