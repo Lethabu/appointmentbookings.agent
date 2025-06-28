@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Booking, Service } from '../types';
 import { MockServices, IconWhatsApp } from '../constants';
@@ -39,6 +38,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ selectedDate, onBookingSubmit
       clientName,
       service: service.name,
       dateTime: bookingDateTime,
+      clientPhone, // <-- Add this line
     });
     // Reset form (optional)
     setClientName('');
