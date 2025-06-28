@@ -2,7 +2,8 @@
   "name": "copy-of-copy-of-smart-salon-hq",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+
+  "type": "commonjs",
   "scripts": {
     "dev": "ts-node-dev app.ts",
     "start": "node dist/app.js",
