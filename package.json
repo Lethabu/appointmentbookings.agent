@@ -4,18 +4,30 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "ts-node-dev app.ts",
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "test": "jest"
   },
   "dependencies": {
+    "@google/genai": "^1.6.0",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "@google/genai": "^1.6.0",
-    "react-router-dom": "^7.6.2"
+    "react-router-dom": "^7.6.2",
+    "socket.io": "^4.8.1",
+    "twilio": "^5.7.1"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.15.33",
+    "@types/socket.io": "^3.0.1",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.0.3",
+    "supertest": "^7.1.1",
+    "ts-jest": "^29.4.0",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }

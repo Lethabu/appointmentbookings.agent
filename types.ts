@@ -1,7 +1,7 @@
 export enum AgentType {
-  NIA = 'Nia', // Salon Assistant
-  BLAZE = 'Blaze', // Marketing Guru
-  NOVA = 'Nova', // Business Strategist
+  NIA = 'Nia',
+  BLAZE = 'Blaze',
+  NOVA = 'Nova',
 }
 
 export interface ChatMessage {
@@ -20,9 +20,11 @@ export interface MinimalChatMessage {
 export interface Booking {
   id: string;
   clientName: string;
+  clientPhone: string;
   service: string;
   dateTime: Date;
   status: 'Confirmed' | 'Pending' | 'Cancelled';
+  reminderSent?: boolean; // Track if reminder was sent
 }
 
 export interface Service {
@@ -30,4 +32,18 @@ export interface Service {
   name: string;
   durationMinutes: number;
   price: number;
+}
+
+export interface AgentAction {
+  agent: AgentType;
+  action: string;
+  payload?: any;
+  timestamp: number;
+}
+
+export interface AvailabilitySlot {
+  serviceId: string;
+  start: Date;
+  end: Date;
+  isBooked: boolean;
 }

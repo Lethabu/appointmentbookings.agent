@@ -1,0 +1,1 @@
+jest.config.js → jest.config.cjs
