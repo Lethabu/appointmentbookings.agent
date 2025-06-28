@@ -2,7 +2,6 @@
   "name": "copy-of-copy-of-smart-salon-hq",
   "private": true,
   "version": "0.0.0",
-
   "type": "commonjs",
   "scripts": {
     "dev": "ts-node-dev app.ts",
@@ -24,7 +23,10 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
+    "@types/next": "^8.0.7",
     "@types/node": "^22.15.33",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "@types/socket.io": "^3.0.1",
     "@types/supertest": "^6.0.3",
     "jest": "^30.0.3",
