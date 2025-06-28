@@ -9,5 +9,10 @@
 			"path": "../../Lethabu/AppointmentBooking"
 		}
 	],
-	"settings": {}
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"google.geminicodeassist"
+		]
+	}
 }
