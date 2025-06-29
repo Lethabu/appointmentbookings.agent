@@ -1,67 +1,47 @@
-import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-// Dummy signature verification - replace with real implementation!
-function verifySignature(payload, signature, secret) {
-  if (process.env.NODE_ENV !== 'production' && signature === 'dummy-signature-for-dev') {
-    return true;
-  }
-  return false;
-}
+import { createClient } from '@supabase/supabase-js'
+import { NextResponse } from 'next/server'
+import { verifyNetcashSignature } from '@/lib/server/verify-webhook'
 
 export async function POST(req) {
-  let payload;
-  try {
-    payload = await req.json();
-  } catch (e) {
-    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
-  }
-  const signature = req.headers.get('x-netcash-signature');
+  const payload = await req.json()
+  const signature = req.headers.get('x-netcash-signature')
 
-  if (!process.env.NETCASH_WEBHOOK_SECRET) {
-    return NextResponse.json({ error: "Webhook configuration error" }, { status: 500 });
-  }
-
-  if (!verifySignature(payload, signature, process.env.NETCASH_WEBHOOK_SECRET)) {
-    return NextResponse.json({ error: "Unauthorized - Invalid signature" }, { status: 401 });
+  // 1. Verify the webhook signature to ensure it's from Netcash
+  if (!verifyNetcashSignature(payload, signature, process.env.NETCASH_WEBHOOK_SECRET)) {
+    return new NextResponse('Invalid signature', { status: 401 })
   }
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  )
 
-  const { payment_id, status, transaction_id } = payload;
+  try {
+    const { reference: payment_id, status, transaction_id } = payload
 
-  if (!payment_id) {
-    return NextResponse.json({ error: "Missing payment_id" }, { status: 400 });
-  }
-
-  // Update payment status
-  await supabase
-    .from('payments')
-    .update({
-      status: status === 'success' ? 'completed' : 'failed',
-      transaction_id: transaction_id,
-      processed_at: new Date().toISOString()
-    })
-    .eq('id', payment_id);
-
-  // Update order status if payment successful
-  if (status === 'success') {
-    const { data: payment } = await supabase
+    // 2. Update our payment record
+    const { error: paymentError } = await supabase
       .from('payments')
-      .select('order_id')
+      .update({
+        status: status === 'success' ? 'completed' : 'failed',
+        transaction_id: transaction_id,
+        processed_at: new Date().toISOString()
+      })
       .eq('id', payment_id)
-      .single();
 
-    if (payment && payment.order_id) {
-      await supabase
-        .from('orders')
-        .update({ status: 'paid' })
-        .eq('id', payment.order_id);
+    if (paymentError) throw paymentError
+
+    // 3. If successful, update the corresponding order
+    if (status === 'success') {
+      const { data: payment } = await supabase.from('payments').select('order_id').eq('id', payment_id).single()
+      if (payment) {
+        await supabase.from('orders').update({ status: 'paid' }).eq('id', payment.order_id)
+      }
     }
-  }
 
-  return NextResponse.json({ received: true });
+    return new NextResponse('Webhook processed', { status: 200 })
+  } catch (error) {
+    console.error('Netcash webhook processing failed:', error)
+    return new NextResponse('Internal Server Error', { status: 500 })
+  }
 }
