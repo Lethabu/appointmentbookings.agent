@@ -7,6 +7,10 @@
 		{
 			"name": "AppointmentBooking",
 			"path": "../../Lethabu/AppointmentBooking"
+		},
+		{
+			"name": "appointmentbooking",
+			"path": "../appointmentbooking"
 		}
 	],
 	"settings": {},
