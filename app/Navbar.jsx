@@ -30,6 +30,8 @@ function NavbarContent() {
         {session ? (
           <>
             {userRole === 'admin' && <Link href="/admin">Admin</Link>}
+            <Link href="/dashboard/services">Services</Link>
+            <Link href="/dashboard/products">Products</Link>
             <Link href="/dashboard">Dashboard</Link>
             <button onClick={handleLogout} disabled={loading} className="text-red-600">{loading ? 'Logging out...' : 'Logout'}</button>
           </>
