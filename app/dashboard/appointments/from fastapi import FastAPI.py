@@ -23,6 +23,5 @@ def health_check():
     """A simple health check endpoint to confirm the service is live and responsive."""
     return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-
 # Your other, more complex agent endpoints like `@app.post("/chat")` will be added below.
 # This provides a solid, professional foundation.
