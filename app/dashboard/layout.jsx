@@ -8,6 +8,7 @@ import {
   ShoppingBagIcon,
   UsersIcon,
   Cog6ToothIcon,
+  UserGroupIcon,
   CreditCardIcon,
   CubeIcon,
 } from '@heroicons/react/24/outline'
@@ -83,6 +84,7 @@ export default async function DashboardLayout({ children }) {
           <NavLink href="/dashboard/orders" icon={ShoppingBagIcon}>Orders</NavLink>
           <NavLink href="/dashboard/products" icon={CubeIcon}>Products</NavLink>
           <NavLink href="/dashboard/clients" icon={UsersIcon}>Clients</NavLink>
+          <NavLink href="/dashboard/staff" icon={UserGroupIcon}>Staff</NavLink>
           <NavLink href="/dashboard/billing" icon={CreditCardIcon}>Billing</NavLink>
           <NavLink href="/dashboard/settings" icon={Cog6ToothIcon}>Settings</NavLink>
         </nav>
