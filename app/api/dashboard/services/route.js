@@ -1,29 +1,13 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-
-async function getSalonForOwner(supabase, userId) {
-  const { data: salon } = await supabase
-    .from('salons')
-    .select('id')
-    .eq('owner_id', userId)
-    .single()
-  return salon
-}
+import { getSessionAndSalon } from '@/lib/server/api-helpers'
 
 export async function GET(req) {
+  const { session, salon, error: authError } = await getSessionAndSalon()
+  if (authError) return authError
+
   const supabase = createRouteHandlerClient({ cookies })
-  const { data: { session } } = await supabase.auth.getSession()
-
-  if (!session) {
-    return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'Content-Type': 'application/json' } })
-  }
-
-  const salon = await getSalonForOwner(supabase, session.user.id)
-  if (!salon) {
-    return new NextResponse(JSON.stringify({ error: 'No salon found for owner' }), { status: 404, headers: { 'Content-Type': 'application/json' } })
-  }
-
   const { data: services, error } = await supabase
     .from('services')
     .select('*')
@@ -38,19 +22,11 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-  const supabase = createRouteHandlerClient({ cookies })
-  const { data: { session } } = await supabase.auth.getSession()
-
-  if (!session) {
-    return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'Content-Type': 'application/json' } })
-  }
-
-  const salon = await getSalonForOwner(supabase, session.user.id)
-  if (!salon) {
-    return new NextResponse(JSON.stringify({ error: 'No salon found for owner' }), { status: 404, headers: { 'Content-Type': 'application/json' } })
-  }
+  const { session, salon, error: authError } = await getSessionAndSalon()
+  if (authError) return authError
 
   const body = await req.json()
+  const supabase = createRouteHandlerClient({ cookies })
   const { data, error } = await supabase.from('services').insert({ ...body, salon_id: salon.id }).select().single()
 
   if (error) return new NextResponse(JSON.stringify({ error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } })
