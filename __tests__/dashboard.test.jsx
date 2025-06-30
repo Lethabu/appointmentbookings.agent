@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Dashboard from '../app/dashboard/page';
+import Dashboard from '../../appointmentbooking/app/dashboard/page';
 
 describe('Dashboard', () => {
   it('renders dashboard headline', () => {
