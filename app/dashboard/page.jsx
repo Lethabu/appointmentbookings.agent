@@ -4,10 +4,10 @@ import { useSession } from '@supabase/auth-helpers-react';
 import { supabase } from "../utils/supabaseClient";
 import Link from "next/link";
 import RecentBookings from "./RecentBookings"; // Import the RecentBookings component
-import AdvancedDashboard from "../../components/Analytics/AdvancedDashboard";
-import RealTimeAnalytics from "../../components/Dashboard/RealTimeAnalytics";
-import AppointmentLiveView from "../../components/Dashboard/AppointmentLiveView";
-import ServiceForm from "../../components/ServiceForm";
+import AdvancedDashboard from "../../../appointmentbooking/components/components/Analytics/AdvancedDashboard";
+import RealTimeAnalytics from "../../../appointmentbooking/components/components/Dashboard/RealTimeAnalytics";
+import AppointmentLiveView from "../../../appointmentbooking/components/components/Dashboard/AppointmentLiveView";
+import ServiceForm from "../../../appointmentbooking/components/components/ServiceForm";
 
 export default function OwnerDashboard() {
   const session = useSession();

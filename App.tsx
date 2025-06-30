@@ -1,10 +1,10 @@
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import DashboardPage from './components/DashboardPage';
-import AgentChatPage from './components/AgentChatPage';
-import BookingsPage from './components/BookingsPage';
+import Sidebar from '../appointmentbooking/components/components/Sidebar';
+import Header from '../appointmentbooking/components/components/Header';
+import DashboardPage from '../appointmentbooking/components/components/DashboardPage';
+import AgentChatPage from '../appointmentbooking/components/components/AgentChatPage';
+import BookingsPage from '../appointmentbooking/components/components/BookingsPage';
 import { AppRoutes } from './constants';
 
 const App: React.FC = () => {

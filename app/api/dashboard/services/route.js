@@ -1,7 +1,7 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { getSessionAndSalon } from '@/lib/server/api-helpers'
+import { getSessionAndSalon } from '../../../../../appointmentbooking/lib/api-helpers'
 
 export async function GET(req) {
   const { session, salon, error: authError } = await getSessionAndSalon()
