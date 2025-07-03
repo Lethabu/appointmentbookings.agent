@@ -1,0 +1,1 @@
+// TODO: Set up an Express.js server with routes for /api/bookings, /api/ai, and /api/whatsapp. Implement middleware for CORS, security with helmet, and morgan for logging. 
