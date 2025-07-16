@@ -1,12 +1,15 @@
 {
     "folders": [
         {
+            "name": "appointmentbooking",
             "path": "../appointmentbooking"
         },
         {
+            "name": "appointmentbookings",
             "path": "."
         },
         {
+            "name": "AppointmentBooking",
             "path": "../../Lethabu/AppointmentBooking"
         }
     ]
