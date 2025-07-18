@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createBrowserClient } from '@supabase/ssr';
 
 export default function SignUpPage() {
-  const supabase = createClientComponentClient();
+  const supabase = createBrowserClient();
   const router = useRouter();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

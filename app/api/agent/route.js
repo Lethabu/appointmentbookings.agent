@@ -1,5 +1,5 @@
 // pages/api/agent/route.js
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+import { createServerComponentClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 // We'll also need the regular createClient for service_role access later
 import { createClient } from '@supabase/supabase-js'
