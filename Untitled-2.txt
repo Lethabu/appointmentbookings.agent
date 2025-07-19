@@ -1,0 +1,4 @@
+// components/BookingWidget.tsx
+export function BookingWidget() {
+  // ...component code...
+}

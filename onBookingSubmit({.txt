@@ -1,0 +1,6 @@
+onBookingSubmit({
+  clientName,
+  clientPhone, // <-- Add this line
+  service,
+  dateTime: bookingDateTime,
+});

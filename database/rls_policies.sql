@@ -42,4 +42,30 @@ CREATE POLICY "Platform admin can access all" ON services
 CREATE POLICY "Platform admin can access all" ON products
   FOR ALL USING (auth.role() = 'admin');
 
+-- Grant insert/update for owners and staff on their own salon's data
+CREATE POLICY "Owner or staff can insert/update services" ON services
+  FOR INSERT, UPDATE USING (
+    salon_id IN (SELECT salon_id FROM profiles WHERE id = auth.uid() AND role IN ('owner', 'staff'))
+  );
+
+CREATE POLICY "Owner or staff can insert/update appointments" ON appointments
+  FOR INSERT, UPDATE USING (
+    salon_id IN (SELECT salon_id FROM profiles WHERE id = auth.uid() AND role IN ('owner', 'staff'))
+  );
+
+CREATE POLICY "Clients can book appointments" ON appointments
+  FOR INSERT USING (
+    salon_id IN (SELECT salon_id FROM profiles WHERE id = auth.uid())
+  );
+
+-- Allow users to read their own orders
+CREATE POLICY "User can read own orders" ON orders
+  FOR SELECT USING (user_id = auth.uid());
+
+-- Allow salon owners to manage orders for their salon
+CREATE POLICY "Owner can manage salon orders" ON orders
+  FOR ALL USING (
+    salon_id IN (SELECT id FROM salons WHERE owner_id = auth.uid())
+  );
+
 -- You may need to adjust policies for other tables as needed.
