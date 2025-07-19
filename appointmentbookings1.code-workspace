@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "folders": [
         {
             "name": "appointmentbooking",
@@ -14,26 +13,4 @@
             "path": "../../Lethabu/AppointmentBooking"
         }
     ]
-=======
-	"folders": [
-		{
-			"name": "appointmentbooking",
-			"path": "../appointmentbooking"
-		},
-		{
-			"name": "appointmentbookings",
-			"path": "."
-		},
-		{
-			"name": "AppointmentBooking",
-			"path": "../../Lethabu/AppointmentBooking"
-		}
-	],
-	"settings": {},
-	"extensions": {
-		"recommendations": [
-			"google.geminicodeassist"
-		]
-	}
->>>>>>> origin/main
 }
