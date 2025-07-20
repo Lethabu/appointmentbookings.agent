@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import "@fontsource/geist-sans";
+import "@fontsource/geist-mono";
 import "./globals.css";
 import Link from "next/link";
 

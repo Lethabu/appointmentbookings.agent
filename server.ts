@@ -1,6 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import app from './app';
+import app from './App';
 import { setSocketServer } from './services/calendar';
 import dotenv from 'dotenv';
 

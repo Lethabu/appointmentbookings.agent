@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
-import { config } from "@/lib/config"
+import { config } from "../../../lib/config";
 
 const supabase = createClient(config.database.supabase.url, config.database.supabase.serviceRoleKey)
 
