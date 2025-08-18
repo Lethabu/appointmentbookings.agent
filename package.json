@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "node vercel-build.js && next build",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@fontsource/geist-mono": "^5.2.6",
